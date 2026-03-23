@@ -13,7 +13,7 @@ app.get('/api/ping', (req, res) => res.json({ status: 'ok', time: new Date() }))
 // =====================
 // MongoDB Connection
 // =====================
-const mongoURI = "mongodb://localhost:27017/schoolDB";
+const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/schoolDB";
 mongoose.connect(mongoURI)
   .then(() => console.log("✅ Connected to MongoDB via Mongoose"))
   .catch(err => console.error("❌ MongoDB connection failed:", err));
@@ -249,6 +249,7 @@ app.get('/', (req, res) => {
 // =====================
 // Start Server
 // =====================
-app.listen(3000, () => {
-  console.log("🚀 Server running at http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
